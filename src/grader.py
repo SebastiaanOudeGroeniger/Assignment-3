@@ -164,7 +164,9 @@ class Test_1f(GradedTestCase):
         action_space = env.action_space
         discrete = isinstance(action_space, gym.spaces.Discrete)
         for action in actions:
+  
             if discrete:
+           
                 self.assertTrue(action_space.contains(action))
             else:
                 # We don't use contains because technically the Gaussian policy

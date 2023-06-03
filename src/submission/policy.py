@@ -64,6 +64,7 @@ class BasePolicy(ABC):
         observations = np2torch(observations, device=self.device)
         ### START CODE HERE ###
         sampled_actions = self.action_distribution(observations=observations).sample()
+
         if self.device != "cpu":
             sampled_actions = sampled_actions.cpu()
         sampled_actions = sampled_actions.detach().numpy()
@@ -95,8 +96,8 @@ class CategoricalPolicy(BasePolicy, nn.Module):
         """
         ### START CODE HERE ###
 
-       
-        distribution = ptd.Categorical(logits=observations)
+        output = self.network(observations)
+        distribution = ptd.Categorical(logits=output)
 
         ### END CODE HERE ###
         return distribution
