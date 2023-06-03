@@ -25,7 +25,7 @@ class BaselineNetwork(nn.Module):
         self.config = config
         self.env = env
         state_shape = list(self.env.observation_space.shape)
-        input_size , = state_shape
+        self.input_size , = state_shape
         self.lr = self.config["hyper_params"]["learning_rate"]
         self.device = torch.device("cpu")
         if self.config["model_training"]["device"] == "gpu":
@@ -37,7 +37,8 @@ class BaselineNetwork(nn.Module):
         ### START CODE HERE ###
         n_layers = self.config["hyper_params"]["n_layers"]
         layer_size = self.config["hyper_params"]["layer_size"]
-        self.network = build_mlp(input_size=input_size, output_size=1, n_layers=n_layers, size=layer_size)
+        self.output_size = 1
+        self.network = build_mlp(input_size=self.input_size, output_size=self.output_size, n_layers=n_layers, size=layer_size)
 
         self.optimizer = torch.optim.Adam(self.network.parameters())
        
@@ -62,6 +63,12 @@ class BaselineNetwork(nn.Module):
             (which will be returned).
         """
         ### START CODE HERE ###
+        batch_size = self.config["hyper_params"]["batch_size"]
+        self.input_size = observations.size(1)
+        self.output_size = batch_size
+        network = self.network
+        output = network(observations)
+        output = output.squeeze(-1)
         ### END CODE HERE ###
         assert output.ndim == 1
         return output
@@ -94,6 +101,8 @@ class BaselineNetwork(nn.Module):
         """
         observations = np2torch(observations, device=self.device)
         ### START CODE HERE ###
+
+
         ### END CODE HERE ###
         return advantages
 
