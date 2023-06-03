@@ -219,13 +219,26 @@ class PolicyGradient(object):
 
         TODO: compute and return G_t for each timestep. Use self.config["hyper_params"]["gamma"].
         """
-
+        
         all_returns = []
         for path in paths:
             rewards = path["reward"]
-            ### START CODE HERE ###
+            returns = []
+
+            # Calculate G_t for each timestep
+            G_t = 0
+            for r in reversed(rewards):
+                G_t = r + self.config["hyper_params"]["gamma"] * G_t
+                returns.insert(0, G_t)  # prepend to get reverse accumulated rewards
+
+            #all_returns.append(np.array(returns))
+                        
             ### END CODE HERE ###
-            all_returns.append(returns)
+            all_returns.append(np.array(returns))
+            ### END CODE HERE ###
+        #    all_returns.append(np.array(returns))
+            
+            
         returns = np.concatenate(all_returns)
 
         return returns

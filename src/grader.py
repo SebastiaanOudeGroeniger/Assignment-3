@@ -137,9 +137,11 @@ class Test_1e(GradedTestCase):
                 1 + gamma + gamma**2 + gamma**3,
                 1 + gamma + gamma**2,
                 1 + gamma,
-                1,
+                1
             ]
         )
+        #print(type(returns))
+        #print(type(expected))
         diff = np.mean((returns - expected) ** 2)
         self.assertAlmostEqual(diff, 0, delta=0.001)
 
@@ -180,6 +182,7 @@ class Test_1f(GradedTestCase):
         rand_obs = np.random.randn(10, pg.observation_dim)
         actions = pg.policy.act(rand_obs)
         action_space = env.action_space
+
         discrete = isinstance(action_space, gym.spaces.Discrete)
         for action in actions:
             if discrete:
