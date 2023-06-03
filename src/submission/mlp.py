@@ -37,4 +37,25 @@ def build_mlp(input_size, output_size, n_layers, size):
             model = nn.Sequential(*modules)
     """
     ### START CODE HERE ###
+    #input_vector = torch.randn(input_size)
+
+    input = nn.Linear(input_size, size)
+    hidden_layers = nn.Linear(size, size)
+    output = nn.Linear(size, output_size)
+    relu = nn.ReLU()
+
+    modules = [input]
+    modules.append(relu)
+    for module in range(n_layers-1):
+        modules.append(hidden_layers)
+        modules.append(relu)
+    #modules.append(hidden_layers)
+    modules.append(output)
+
+    model = nn.Sequential(*modules)
+
+    return model#, model.state_dict()
+
     ### END CODE HERE ###
+if __name__ == "__main__":
+   print(build_mlp(10,7,3,3))
