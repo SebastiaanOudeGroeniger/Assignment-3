@@ -24,6 +24,8 @@ class BaselineNetwork(nn.Module):
         super().__init__()
         self.config = config
         self.env = env
+        state_shape = list(self.env.observation_space.shape)
+        input_size , = state_shape
         self.lr = self.config["hyper_params"]["learning_rate"]
         self.device = torch.device("cpu")
         if self.config["model_training"]["device"] == "gpu":
@@ -33,6 +35,12 @@ class BaselineNetwork(nn.Module):
                 self.device = torch.device("mps")
 
         ### START CODE HERE ###
+        n_layers = self.config["hyper_params"]["n_layers"]
+        layer_size = self.config["hyper_params"]["layer_size"]
+        self.network = build_mlp(input_size=input_size, output_size=1, n_layers=n_layers, size=layer_size)
+
+        self.optimizer = torch.optim.Adam(self.network.parameters())
+       
         ### END CODE HERE ###
 
     def forward(self, observations):

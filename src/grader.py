@@ -79,6 +79,8 @@ class Test_1b(GradedTestCase):
         """1b-0-basic: test baseline for the existence of optimizer"""
         env = gym.make(self.config["env"]["env_name"])
         baseline = BaselineNetwork(env, self.config)
+        nnn = baseline.__init__(env, self.config)
+  
         self.assertTrue(hasattr(baseline, "optimizer"))
         self.assertTrue(isinstance(baseline.optimizer, torch.optim.Optimizer))
 
