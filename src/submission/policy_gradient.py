@@ -90,6 +90,22 @@ class PolicyGradient(object):
                you can call the parameters() method to get its parameters.
         """
         ### START CODE HERE ###
+        #1.
+        n_layers = self.config["hyper_params"]["n_layers"]
+        layer_size = self.config["hyper_params"]["layer_size"]
+        self.network = build_mlp(input_size=self.observation_dim, output_size=self.action_dim, n_layers=n_layers, size=layer_size)
+        #2.
+        self.network = self.network.to(self.device)
+        #3.
+        if self.discrete:
+            self.policy = CategoricalPolicy(network=self.network, device=self.device)
+        elif not self.discrete:
+            self.policy = GaussianPolicy(network=self.network, action_dim=self.action_dim, device=self.device)
+        else:
+            print("Self.discrete is not set properly")
+
+        #4. 
+        self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=self.lr)
         ### END CODE HERE ###
 
     def init_averages(self):
