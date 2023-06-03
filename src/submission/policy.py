@@ -171,9 +171,11 @@ class GaussianPolicy(BasePolicy, nn.Module):
         """
         ### START CODE HERE ###
         output = self.network(observations)
-
-        loc = torch.mean(output)
+    
+  
         scale = self.std()
-        distribution = ptd.MultivariateNormal(loc=loc, scale_tril=scale)#, covariance_matrix=observations)
+    
+
+        distribution = ptd.MultivariateNormal(loc=output, scale_tril=scale)#, covariance_matrix=observations)
         ### END CODE HERE ###
         return distribution
