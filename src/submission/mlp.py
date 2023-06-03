@@ -49,13 +49,9 @@ def build_mlp(input_size, output_size, n_layers, size):
     for module in range(n_layers-1):
         modules.append(hidden_layers)
         modules.append(relu)
-    #modules.append(hidden_layers)
     modules.append(output)
 
     model = nn.Sequential(*modules)
 
-    return model#, model.state_dict()
-
+    return model
     ### END CODE HERE ###
-if __name__ == "__main__":
-   print(build_mlp(10,7,3,3))
