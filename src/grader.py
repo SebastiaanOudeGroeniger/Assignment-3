@@ -80,7 +80,7 @@ class Test_1b(GradedTestCase):
         env = gym.make(self.config["env"]["env_name"])
         baseline = BaselineNetwork(env, self.config)
         nnn = baseline.__init__(env, self.config)
-  
+            
         self.assertTrue(hasattr(baseline, "optimizer"))
         self.assertTrue(isinstance(baseline.optimizer, torch.optim.Optimizer))
 
