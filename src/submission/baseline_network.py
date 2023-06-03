@@ -101,7 +101,12 @@ class BaselineNetwork(nn.Module):
         """
         observations = np2torch(observations, device=self.device)
         ### START CODE HERE ###
-
+        
+        baseline_values = self.forward(observations)
+        if self.device != "cpu":
+            baseline_values = baseline_values.cpu()
+        baseline_values = baseline_values.detach().numpy()
+        advantages = returns - baseline_values
 
         ### END CODE HERE ###
         return advantages
