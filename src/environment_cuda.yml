@@ -4,7 +4,7 @@ channels:
   - conda-forge
   - pytorch
 dependencies:
-  - python=3.8.10
+  - python==3.9.1
   - notebook=6.5.4
   - tk=8.6.12
   - ffmpeg=4.2.2

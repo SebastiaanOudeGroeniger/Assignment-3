@@ -261,6 +261,12 @@ class PolicyGradient(object):
         This function is called only if self.config["model_training"]["normalize_advantage"] is True.
         """
         ### START CODE HERE ###
+
+        mean = np.mean(advantages)
+        stdev = np.std(advantages)
+
+        normalized_advantages = (advantages - mean)/stdev
+
         ### END CODE HERE ###
         return normalized_advantages
 
@@ -314,6 +320,20 @@ class PolicyGradient(object):
         actions = np2torch(actions, device=self.device)
         advantages = np2torch(advantages, device=self.device)
         ### START CODE HERE ###
+       
+        obs_dist = self.policy.action_distribution(observations)
+        log_prob_actions = obs_dist.log_prob(actions)
+        #print(log_prob_actions, type(log_prob_actions),log_prob_actions.shape, "log_prob")
+        sum_of_terms = torch.mul(-log_prob_actions, advantages)
+        #print(sum_of_terms, type(sum_of_terms), sum_of_terms.shape, "sum_of_terms")
+        g_hat = torch.gradient(sum_of_terms, dim=0)
+        #print(g_hat, type(g_hat), g_hat[0].shape, "g_hat")
+        
+        self.optimizer.zero_grad()
+        #g_hat[0].sum().backward()
+        sum_of_terms.sum().backward()
+        self.optimizer.step()
+
         ### END CODE HERE ###
 
     def train(self):

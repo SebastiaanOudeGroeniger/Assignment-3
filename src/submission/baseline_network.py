@@ -134,7 +134,7 @@ class BaselineNetwork(nn.Module):
         
         loss = nn.MSELoss()
         loss = loss(predictions, returns)
- 
+
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
