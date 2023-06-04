@@ -1,0 +1,7 @@
+2023-06-04 12:02:53,693:INFO: Average reward: 6.77 +/- 0.09
+2023-06-04 12:03:20,116:INFO: Average reward: 9.21 +/- 0.16
+2023-06-04 12:03:47,070:INFO: Average reward: 13.30 +/- 0.30
+2023-06-04 12:04:12,178:INFO: Average reward: 19.55 +/- 0.53
+2023-06-04 12:04:39,571:INFO: Average reward: 26.79 +/- 0.82
+2023-06-04 12:05:05,982:INFO: Average reward: 35.43 +/- 1.05
+2023-06-04 12:05:31,747:INFO: Average reward: 47.03 +/- 1.54
